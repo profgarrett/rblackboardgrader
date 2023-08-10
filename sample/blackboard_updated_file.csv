@@ -1,0 +1,4 @@
+"Last Name","First Name","Username","Student ID","Last Access","Availability","Child Course ID","HW 1 - R Syntax [Total Pts: 10 Score] |2904978","Grading Notes","Notes Format","Feedback to Learner","Feedback Format"
+"A","Anthony","aaa00002",800330280,,"Yes","star84997.202308","10",,"SMART_TEXT","<pre role=""document"" aria-label=""Console Output"" tabindex=""0""><span role=""document"" tabindex=""-1"">[Q. first] ✔<br>[Q. a] ✔</span></pre><pre id=""rstudio_console_output"" role=""document"" aria-label=""Console Output"" tabindex=""0""><span role=""document"" tabindex=""-1""> ✘</span></pre>","HTML"
+"B","Bob","bbb0050",800318904,,"Yes","star87405.202308","0",,"SMART_TEXT","","HTML"
+"C","Cindy","ccc00002",800324937,,"Yes","star84997.202308","1",,"SMART_TEXT","[Q. first] Yes<br/> [Q. a] No","HTML"
