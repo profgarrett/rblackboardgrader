@@ -1,6 +1,11 @@
 # Grade all files in downloaded zip
 #
-# NDG, 7/13/23
+# NDG, updated 6/4/24
+#
+# To use:
+# calcGrades: grade an already expanded folder of files against a test.R
+# grade_first_blackboard...:  grab the first zip file, unzip, test, and
+#   update the downloaded csv of student grades.
 
 library(testthat)
 library(dplyr)
@@ -106,7 +111,7 @@ findGlobalPaths <- function(submission_dir) {
 #' my_test_file <- system.file("extdata/example", "grade_hw1.R", package = "gradeR")
 #' results <- calcGrades(submissions, my_test_file)
 #' }
-calcGrades <- function(submission_dir, your_test_file, suppress_warnings = TRUE, verbose = FALSE){
+calcGrades <- function(submission_dir, your_test_file, suppress_warnings = T, verbose = T){
 
   if(missing(submission_dir) | missing(your_test_file))
     stop("the first two arguments are required")
@@ -136,7 +141,7 @@ calcGrades <- function(submission_dir, your_test_file, suppress_warnings = TRUE,
     # run student's submission in a separate process
     # https://stackoverflow.com/questions/63744905/attaching-packages-to-a-temporary-search-path-in-r/63746414#63746414
     tmp_full_path <- paste(submission_dir, path, sep = "")
-    if(verbose) cat("grading: ", path, "\n")
+    if (T) cat("grading: ", tmp_full_path, "\n")
     # run student's submission in a separate process
     # https://stackoverflow.com/a/63746414/1267833
     rogueScript <- function(source_file_path){
@@ -151,7 +156,7 @@ calcGrades <- function(submission_dir, your_test_file, suppress_warnings = TRUE,
       tryCatch(
         suppressWarnings(scriptResults <- callr::r(rogueScript,
                                                    args = list(tmp_full_path),
-                                                   show = TRUE, package = TRUE)),
+                                                   show = FALSE, package = TRUE)),
         error = function(e){
           print(paste0("error: ", e$parent$call))
           print(e$parent$trace)
@@ -220,14 +225,19 @@ calcGrades <- function(submission_dir, your_test_file, suppress_warnings = TRUE,
 ################################################################################
 
 
-grade_solution <- function() {
+#grade_solution <- function() {
   # get the grades
-  results <- calcGrades(submission_dir = './solution/',
-                        your_test_file = "test.r")
-  print(results)
-}
+#  results <- calcGrades(submission_dir = './solution/',
+#                        your_test_file = "test.r")
+#  print(results)
+#}
 
-grade_all <- function() {
+grade_first_blackboard_zip_file_in_wd_and_save_results <- function(test_file_path) {
+
+  # make sure that we have a filepath
+  if (missing(test_file_path)) {
+    stop('Please provide the url for the test file')
+  }
 
   # Extract the first zip in this folder into submissions.
   files <- list.files(pattern = '.zip$')
@@ -262,7 +272,7 @@ grade_all <- function() {
 
   # get the grades
   results <- calcGrades(submission_dir = './submissions/',
-                       your_test_file = "test.r")
+                       your_test_file = test_file_path)
 
 
 
